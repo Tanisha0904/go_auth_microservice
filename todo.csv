@@ -1,0 +1,8 @@
+Order,  Task,               Process Name,           What it does
+1,      Environment Setup,  Config Initialization,  Create a .env file to store your JWT_SECRET. Never hardcode keys!
+2,      Define Structures,  Modeling,               Create structs for LoginRequest and Claims. This ensures type safety.
+3,      Token Creation,     Signing Logic,          Write the function that takes a User ID and returns a signed string.
+4,      Login Endpoint,     Authentication,         Create a POST route. This is where you verify credentials against a DB (or mock).
+5,      Build Middleware,   Authorization,          Write a function that checks for Bearer <token> in headers for protected routes.
+6,      Router Setup,       Routing,                Use Gin to group routes into Public (Login/Signup) and Private (Dashboard).
+7,      Server Startup,     Bootstrapping,          "In main.go, load .env, initialize routes, and start listening on a port (e.g., :8080)."
