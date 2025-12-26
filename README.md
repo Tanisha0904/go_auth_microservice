@@ -2,15 +2,18 @@
 
 ### How to run:
 > go mod tidy
+
 > go run cmd/main.go
 ### POST: localhost:8080/login
 request: {
     "username": "",
     "password": ""
 }
+
 response: {"token":""}
 ### GET: localhost:8080/api/home
 request: add the token in Bearer Token for authorization
+
 response: {
     "message": "Welcome to Home",
     "user": ""
