@@ -2,6 +2,7 @@ package auth
 
 import (
 	"fmt"
+	"go-jwt-auth/internal/models"
 	"os"
 	"time"
 
@@ -13,7 +14,7 @@ var jwtKey = os.Getenv("JWT_SECRET")
 func GenerateToken(username string) (string, error) {
 	//Create a new claim, sign it with a SecretKey using the HMAC-SHA256 algorithm.
 	expirationTime := time.Now().Add(24 * time.Hour)
-	claims := &Claims{
+	claims := &models.Claims{
 		Username: username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expirationTime),

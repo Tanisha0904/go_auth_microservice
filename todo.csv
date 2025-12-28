@@ -6,3 +6,12 @@ Order,  Task,               Process Name,           What it does
 5,      Build Middleware,   Authorization,          Write a function that checks for Bearer <token> in headers for protected routes.
 6,      Router Setup,       Routing,                Use Gin to group routes into Public (Login/Signup) and Private (Dashboard).
 7,      Server Startup,     Bootstrapping,          "In main.go, load .env, initialize routes, and start listening on a port (e.g., :8080)."
+
+
+After addition of database
+Order,  Task,               Why?
+1,      Install Postgres,   You need a running instance (or a Docker container).
+2,      Update Models,      Add gorm.Model to include CreatedAt and DeletedAt fields.
+3,      Connect in Main,    Call database.Connect() inside main.go before routes start.
+4,      Create Signup,      Write a SignupHandler to actually put data into the DB.
+5,      Add Hashing,        Never store plain text passwords. Use the bcrypt library.
