@@ -45,16 +45,31 @@ func LoginHandler(c *gin.Context) {
 func SignUp(c *gin.Context) {
 	fmt.Println("\n\n into signup function")
 	var req models.SignUpRequest
+
 	// 1. Bind JSON input to struct
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
 		return
 	}
+	// 2. Check if user already exists
+	var existingUser models.User
+	// .First() executes the query. If it finds a record, err will be nil.
+	err := database.DB.Where("username = ?", req.Username).First(&existingUser).Error
 
+	if err == nil {
+		// If no error, it means a user was found
+		c.JSON(http.StatusConflict, gin.H{"error": "User already present, please login"})
+		return
+	}
+
+	// 3. Validate passwords
 	if req.Password != req.ConfirmPassword {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Password and confirm password didnt match"})
 		c.Abort()
+		return
 	}
+
+	// 4. Create the user (Initialize here so req.Username has data)
 	user := models.User{Username: req.Username, Password: req.Password}
 	result := database.DB.Create(&user)
 	if result.Error != nil {
