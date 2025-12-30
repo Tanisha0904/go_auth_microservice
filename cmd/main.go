@@ -16,6 +16,8 @@ func main() {
 	//public routes
 	r.POST("/login", auth.LoginHandler)
 	r.POST("/signup", auth.SignUp)
+	r.POST("/forgot-password", auth.ForgotPassword)
+	r.POST("/reset-password", auth.ResetPassword)
 
 	//protected routes(require jwt)
 	protected := r.Group("/api")
